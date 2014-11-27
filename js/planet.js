@@ -18,6 +18,7 @@ function Planet(def){
 		material.diffuseTexture = texture;
 		// material.specularTexture = texture;
 		material.emissiveColor = new BABYLON.Color3(0, 0, 255);
+		// material.specularColor = new BABYLON.Color3(0, 0, 255);
 
 		texture.update();
 		return material;
