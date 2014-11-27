@@ -14,8 +14,11 @@ function Game(def){
 	},
 	initLight = function(scene){
 		var light = new BABYLON.HemisphericLight("light1", 
-			new BABYLON.Vector3(0,1,1), scene);
-		light.intensity = 0.5;
+			new BABYLON.Vector3(0,1,0), scene);
+		light.intensity = 1;
+		light.diffuse = new BABYLON.Color3(0, 0, 0);
+		light.specular = new BABYLON.Color3(0, 0, 0);
+		// light.groundColor = new BABYLON.Color3(0, 0, 0);
 		return light;
 	},
 	initScene = function(canvas,engine){
