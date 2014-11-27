@@ -1,5 +1,6 @@
 function Game(def){
 	var that = def,
+	solarSystem = PlanetCollection(),
 	initCanvas = function(){
 		var canvas = document.createElement('canvas');
 		canvas.id = that.name;
@@ -40,9 +41,17 @@ function Game(def){
 	},
 	loop = function(){
 		that.scene.render();
+		solarSystem.foreach(function(planet){
+			planet.render();
+		});
+		// solarSystem.foreach(function(planet){
+			// planet.render();
+		// });
 	}
 
-	;that.render = render;
+	;
+	that.solarSystem = solarSystem;
+	that.render = render;
 	that.setup = setup;
 	return that;
 }
