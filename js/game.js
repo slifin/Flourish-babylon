@@ -25,6 +25,8 @@ function Game(def){
 	initScene = function(canvas,engine){
 		var scene = new BABYLON.Scene(engine);
 		var camera = initCamera(scene);
+		scene.activeCamera = camera;
+		scene.activeCamera.attachControl(document.getElementById('flourish'));
 		var light = initLight(scene); 
 		scene.clearColor = BABYLON.Color3.Black();
 		return scene;
