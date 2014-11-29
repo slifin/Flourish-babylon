@@ -1,7 +1,7 @@
 function Game(def){
 	var that = def,
 	Setup = function(){
-		Canvas(); Camera(); Light(); Scene();
+		Canvas(); Camera(); Light(); Scene(); Resize();
 		return that;
 	},
 	Canvas = function(){
@@ -11,7 +11,7 @@ function Game(def){
 		return canvas;
 	},
 	Camera = function(){
-		// camera.setTarget(new BABYLON.Vector3.Zero());
+		camera.setTarget(new BABYLON.Vector3.Zero());
 	},
 	Light = function(){
 		light.intensity = 1;
@@ -33,6 +33,11 @@ function Game(def){
 			objects[i].foreach(function(item){
 				item.Render();
 			});
+	},
+	Resize = function(){
+		window.addEventListener("resize", function () {
+			engine.resize();
+		});
 	},
 	objects = [],
 	canvas = Canvas(),

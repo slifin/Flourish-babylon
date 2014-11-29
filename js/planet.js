@@ -1,39 +1,47 @@
 function Planet(def){
 	var that = def,
-	Create = function(gameScene){
-		scene = gameScene;
-		sphere = BABYLON.Mesh.CreateSphere(that.name, 16, 2, scene);
-		sphere.position.y = 0;
-		sphere.position.x = 0;
-		sphere.material = getMaterial();
-		label();
+	Create = function(scene,x,y){
+		that.scene = scene;
+		that.x = x; 
+		that.y = y;
+		Sphere();
+		Orbit(); 
+		Label();
 		return that;
 	},
+	Sphere = function(){
+		sphere = BABYLON.Mesh.CreateSphere(that.name, 16, 2, that.scene);
+		sphere.position.x = that.x;
+		sphere.position.y = that.y;
+		sphere.material = getMaterial();
+	},
 	getMaterial = function(){
-		var material =  new BABYLON.StandardMaterial("texture1", scene);
-		var texture = new BABYLON.DynamicTexture("Planet Texture", getCanvas(), scene);
+		var material =  new BABYLON.StandardMaterial("Planet Material", that.scene);
+		var texture = new BABYLON.DynamicTexture("Planet Texture", getCanvas(), that.scene);
 		texture.hasAlpha = true;
 		context = texture.getContext();
 		applyTexture();
 		material.diffuseTexture = texture;
 		material.diffuseColor = new BABYLON.Color3(255, 0, 0);
-		material.emissiveColor = new BABYLON.Color3(255, 0, 0);
 		texture.update();
 		return material;
 	},
-	label = function(){
-		var plane = BABYLON.Mesh.CreatePlane('label',5,scene);
-		plane.position.z = 2;
+	Orbit = function(){
+		var material = '';
+	},
+	Label = function(){
+		var plane = BABYLON.Mesh.CreatePlane('label',4,that.scene);
+		plane.position.z = 1;
 		plane.position.y = sphere.position.y;
 		plane.position.x = sphere.position.x;
-		plane.material = new BABYLON.StandardMaterial("label_bg", scene);
+		plane.material = new BABYLON.StandardMaterial("label_bg", that.scene);
 
-		var texture = new BABYLON.DynamicTexture("Text Texture", 512, scene,true);
+		var texture = new BABYLON.DynamicTexture("Text Texture", 512,that.scene,true);
 		plane.material.diffuseTexture = texture; 
 		plane.material.diffuseTexture.hasAlpha = true;
 		plane.material.backFaceCulling = false; 
 		plane.material.diffuseColor = new BABYLON.Color3(155,155,155);
-		texture.drawText(that.name, null,500, "5rem Verdana", "white");
+		texture.drawText(that.name, null,500, "5rem Verdana", "white",'#222');
 	},
 	Render = function(){
 		if ((Math.random()*2) % 2)
@@ -66,7 +74,6 @@ function Planet(def){
 		}
 		return canvas;
 	},
-	scene, 
 	sphere,
 	context,
 	calc = Calc(),

@@ -1,6 +1,10 @@
 (function(){
 	var flourish = Game({name:'flourish'}).Setup(),
-	earth = Planet({name:'earth'}).Create(flourish.scene),
-	solarSystem = PlanetCollection().add('earth',earth);
+	solarSystem = PlanetCollection();
+	for(var i = 0;i<5;i++){
+		eve = Planet({name:'eve'+i}).Create(flourish.scene,i*5,0);
+		solarSystem.add('eve'+i,eve);
+	}
+
 	flourish.Render([solarSystem]);
 })();
