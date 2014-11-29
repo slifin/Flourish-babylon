@@ -12,6 +12,15 @@ function Game(def){
 	},
 	Camera = function(){
 		camera.setTarget(new BABYLON.Vector3.Zero());
+		addWheelListener(canvas, Zoom);
+	},
+	Zoom = function(event){
+		if (event.wheelDelta>0){
+			if (camera.position.z<-5)
+				camera.position.z+=0.5;
+		}else{
+			camera.position.z-=0.5;
+		}
 	},
 	Light = function(){
 		light.intensity = 1;
@@ -44,6 +53,7 @@ function Game(def){
 	engine = new BABYLON.Engine(canvas, true),
 	scene = new BABYLON.Scene(engine),
 	camera = new BABYLON.TouchCamera("Camera3", new BABYLON.Vector3(0, 0, -10), scene),
+	// camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene),
 	light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0,1,0), scene)
 	;
 	that.scene = scene;
