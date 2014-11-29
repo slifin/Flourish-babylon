@@ -17,7 +17,7 @@ function Game(def){
 		var light = new BABYLON.HemisphericLight("light1", 
 			new BABYLON.Vector3(0,1,0), scene);
 		light.intensity = 1;
-		light.diffuse = new BABYLON.Color3(0, 0, 0);
+		// light.diffuse = new BABYLON.Color3(0, 0, 0);
 		light.specular = new BABYLON.Color3(0, 0, 0);
 		light.groundColor = new BABYLON.Color3(0, 0, 0);
 
