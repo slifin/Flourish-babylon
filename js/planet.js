@@ -1,38 +1,55 @@
-function Planet(def){
+function Planet(def,scene){
 	var that = def,
 	size = that.size||200,
+	calc = Calc(),
 	minRotate = -0.002, maxRotate = 0.005,
-	rotateX = Calc().getBetween(minRotate,maxRotate),
-	rotateY = Calc().getBetween(minRotate,maxRotate),
-	rotateZ = Calc().getBetween(minRotate,maxRotate),
-	
-	create = function(scene){
-		var sphere = BABYLON.Mesh.CreateSphere(that.name, 16, 2, scene);
+	rotation = {
+		x:calc.getBetween(minRotate,maxRotate),
+		y:calc.getBetween(minRotate,maxRotate),
+		z:calc.getBetween(minRotate,maxRotate)
+	},
+	sphere = BABYLON.Mesh.CreateSphere(that.name, 16, 2, scene),
+	create = function(){
 		sphere.position.y = 0;
 		sphere.position.x = 0;
 		sphere.material = getMaterial(scene);
-		that.sphere = sphere;
-	},
-	getMaterial = function(scene){
+		label();
+		},
+	getMaterial = function(){
 		var material =  new BABYLON.StandardMaterial("texture1", scene);
-		var texture = new BABYLON.DynamicTexture("dynamic texture", getCanvas(), scene);
-		var ctx = texture.getContext();
-		ctx = drawTexture(ctx);
-		// document.body.appendChild(ctx);
+		var texture = new BABYLON.DynamicTexture("Planet Texture", getCanvas(), scene);
 		texture.hasAlpha = true;
+		var ctx = texture.getContext();
+		ctx = applyTexture(ctx);
 		material.diffuseTexture = texture;
-		material.ambientColor = new BABYLON.Color3(255, 0, 0);
+		material.diffuseColor = new BABYLON.Color3(255, 0, 0);
 		material.emissiveColor = new BABYLON.Color3(255, 0, 0);
 		texture.update();
 		return material;
 	},
+	label = function(){
+		var plane = BABYLON.Mesh.CreatePlane('label',5,scene);
+		plane.position.z = 2;
+		plane.position.y = sphere.position.y;
+		plane.position.x = sphere.position.x;
+		plane.material = new BABYLON.StandardMaterial("label_bg", scene);
+
+		var texture = new BABYLON.DynamicTexture("Text Texture", 512, scene,true);
+		plane.material.diffuseTexture = texture; 
+		plane.material.diffuseTexture.hasAlpha = true;
+		plane.material.backFaceCulling = false; 
+		plane.material.diffuseColor = new BABYLON.Color3(155,155,155);
+		texture.drawText(that.name, null,500, "5rem Verdana", "white",'#555');
+	
+
+	},
 	render = function(){
 		if ((Math.random()*2) % 2)
-			that.sphere.rotation.y += rotateY; 
+			sphere.rotation.y += rotation.y; 
 		if ((Math.random()*2) % 2)
-			that.sphere.rotation.z += rotateZ; 
+			sphere.rotation.z += rotation.z; 
 		if ((Math.random()*2) % 2)
-			that.sphere.rotation.x += rotateX; 
+			sphere.rotation.x += rotation.x; 
 	},
 
 	getCanvas = function(){
@@ -41,8 +58,7 @@ function Planet(def){
 		canvas.height = size;
 		return canvas;
 	},
-	drawTexture = function(context){
-		var calc = Calc();
+	applyTexture = function(context){
 		var opacity = 1;
 		for(i = 0;i < 1000;i++){
 			context.beginPath();
@@ -60,6 +76,7 @@ function Planet(def){
 		return canvas;
 	}
 	;
+	that.sphere = sphere;
 	that.render = render;
 	that.create = create;
 	return that;
