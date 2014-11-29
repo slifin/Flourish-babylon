@@ -6,17 +6,20 @@ function Collection(){
 		if(collection[key]!==undefined)
 			return undefined;
 		collection[key]=item;
-		return ++count;
+		++count;
+		return that;
 	}, 
 	remove = function(key){
 		if(collection[key]!==undefined)
 			return undefined;
 		delete collection[key];
-		return --count;
+		--count;
+		return that;
 	},
 	foreach = function(callback){
 		for(var key in collection)
 			callback(collection[key]);
+		return that;
 	};
 	that.foreach = foreach;
 	that.remove = remove;

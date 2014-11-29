@@ -1,26 +1,20 @@
-function Planet(def,scene){
+function Planet(def){
 	var that = def,
-	size = that.size||200,
-	calc = Calc(),
-	minRotate = -0.002, maxRotate = 0.005,
-	rotation = {
-		x:calc.getBetween(minRotate,maxRotate),
-		y:calc.getBetween(minRotate,maxRotate),
-		z:calc.getBetween(minRotate,maxRotate)
-	},
-	sphere = BABYLON.Mesh.CreateSphere(that.name, 16, 2, scene),
-	create = function(){
+	Create = function(gameScene){
+		scene = gameScene;
+		sphere = BABYLON.Mesh.CreateSphere(that.name, 16, 2, scene);
 		sphere.position.y = 0;
 		sphere.position.x = 0;
-		sphere.material = getMaterial(scene);
+		sphere.material = getMaterial();
 		label();
-		},
+		return that;
+	},
 	getMaterial = function(){
 		var material =  new BABYLON.StandardMaterial("texture1", scene);
 		var texture = new BABYLON.DynamicTexture("Planet Texture", getCanvas(), scene);
 		texture.hasAlpha = true;
-		var ctx = texture.getContext();
-		ctx = applyTexture(ctx);
+		context = texture.getContext();
+		applyTexture();
 		material.diffuseTexture = texture;
 		material.diffuseColor = new BABYLON.Color3(255, 0, 0);
 		material.emissiveColor = new BABYLON.Color3(255, 0, 0);
@@ -39,11 +33,9 @@ function Planet(def,scene){
 		plane.material.diffuseTexture.hasAlpha = true;
 		plane.material.backFaceCulling = false; 
 		plane.material.diffuseColor = new BABYLON.Color3(155,155,155);
-		texture.drawText(that.name, null,500, "5rem Verdana", "white",'#555');
-	
-
+		texture.drawText(that.name, null,500, "5rem Verdana", "white");
 	},
-	render = function(){
+	Render = function(){
 		if ((Math.random()*2) % 2)
 			sphere.rotation.y += rotation.y; 
 		if ((Math.random()*2) % 2)
@@ -51,14 +43,13 @@ function Planet(def,scene){
 		if ((Math.random()*2) % 2)
 			sphere.rotation.x += rotation.x; 
 	},
-
 	getCanvas = function(){
 		canvas = document.createElement( 'canvas' );
 		canvas.width = size;
 		canvas.height = size;
 		return canvas;
 	},
-	applyTexture = function(context){
+	applyTexture = function(){
 		var opacity = 1;
 		for(i = 0;i < 1000;i++){
 			context.beginPath();
@@ -74,11 +65,21 @@ function Planet(def,scene){
 			context.fill();
 		}
 		return canvas;
+	},
+	scene, 
+	sphere,
+	context,
+	calc = Calc(),
+	size = that.size||200,
+	minRotate = -0.002, maxRotate = 0.005,
+	rotation = {
+		x:calc.getBetween(minRotate,maxRotate),
+		y:calc.getBetween(minRotate,maxRotate),
+		z:calc.getBetween(minRotate,maxRotate)
 	}
 	;
-	that.sphere = sphere;
-	that.render = render;
-	that.create = create;
+	that.Render = Render;
+	that.Create = Create;
 	return that;
 }
 
