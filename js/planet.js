@@ -27,9 +27,10 @@ function Planet(def){
 		return material;
 	},
 	Orbit = function(){
-		var orbit = BABYLON.Mesh.CreateSphere(that.name+'_orbit', 16, 2, that.scene);
+		var orbit = BABYLON.Mesh.CreateSphere(that.name+'_orbit', 16, 3, that.scene);
 		orbit.position.x = that.x;
-		orbit.position.y = that.y; 
+		orbit.position.y = that.y;
+		orbit.visibility = 0.5;
 	},
 	Label = function(){
 		var plane = BABYLON.Mesh.CreatePlane('label',4,that.scene);

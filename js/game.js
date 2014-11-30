@@ -11,10 +11,11 @@ function Game(def){
 		return canvas;
 	},
 	Camera = function(){
-		addWheelListener(canvas, Zoom);
 		camera.angularSensibility = 2;
+		// camera.mode = 1;
 		scene.activeCamera = camera;
 		scene.activeCamera.attachControl(canvas);
+		addWheelListener(canvas, Zoom);
 		
 	},
 	Zoom = function(event){
@@ -54,7 +55,7 @@ function Game(def){
 	canvas = Canvas(),
 	engine = new BABYLON.Engine(canvas, true),
 	scene = new BABYLON.Scene(engine),
-	camera = Camera2D(new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -20), scene)),
+	camera = Camera2D(new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -5), scene)),
 	light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0,1,0), scene)
 	;
 	that.scene = scene;
