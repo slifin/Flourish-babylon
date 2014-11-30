@@ -56,6 +56,8 @@ function Game(def){
 	engine = new BABYLON.Engine(canvas, true),
 	scene = new BABYLON.Scene(engine),
 	camera = Camera2D(new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -5), scene)),
+	// camera = Camera2D(new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, 1, -15), scene)),
+
 	light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0,1,0), scene)
 	;
 	that.scene = scene;
