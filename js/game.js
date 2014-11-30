@@ -20,7 +20,7 @@ function Game(def){
 	Camera = function(){
 		// camera.setTarget(new BABYLON.Vector3.Zero());
 		addWheelListener(canvas, Zoom);
-		camera.angularSensibility = 100;
+		camera.angularSensibility = 2;
 		camera2D = Camera2D(camera);
 
 		scene.activeCamera = camera2D;
