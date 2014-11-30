@@ -27,13 +27,15 @@ function Planet(def){
 		return material;
 	},
 	Orbit = function(){
-		var material = '';
+		var orbit = BABYLON.Mesh.CreateSphere(that.name+'_orbit', 16, 2, that.scene);
+		orbit.position.x = that.x;
+		orbit.position.y = that.y; 
 	},
 	Label = function(){
 		var plane = BABYLON.Mesh.CreatePlane('label',4,that.scene);
 		plane.position.z = 1;
-		plane.position.y = sphere.position.y;
-		plane.position.x = sphere.position.x;
+		plane.position.y = that.y;
+		plane.position.x = that.x;
 		plane.material = new BABYLON.StandardMaterial("label_bg", that.scene);
 
 		var texture = new BABYLON.DynamicTexture("Text Texture", 512,that.scene,true);
@@ -41,7 +43,7 @@ function Planet(def){
 		plane.material.diffuseTexture.hasAlpha = true;
 		plane.material.backFaceCulling = false; 
 		plane.material.diffuseColor = new BABYLON.Color3(155,155,155);
-		texture.drawText(that.name, null,500, "5rem Verdana", "white",'#222');
+		texture.drawText(that.name, null,500, "5rem Verdana", "white",'');
 	},
 	Render = function(){
 		if ((Math.random()*2) % 2)
