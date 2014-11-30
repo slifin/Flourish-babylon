@@ -43,10 +43,7 @@ function Camera2D(FreeCamera){
 					offsetX = evt.movementX || evt.mozMovementX || evt.webkitMovementX || evt.msMovementX || 0;
 					offsetY = evt.movementY || evt.mozMovementY || evt.webkitMovementY || evt.msMovementY || 0;
 				}
-				if (offsetY>0)
-					offsetY = -Math.abs(offsetY);
-				else 
-					offsetY = Math.abs(offsetY);
+				offsetY = offsetY - (offsetY * 2);
 				_this.position.y += offsetY / _this.angularSensibility;
 				_this.position.x += offsetX / _this.angularSensibility;
 				previousPosition = {
