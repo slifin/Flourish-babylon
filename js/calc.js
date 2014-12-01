@@ -1,9 +1,11 @@
 function Calc(){
 	var that = {},
 	Between = function(min,max){
-		var num = Math.random()*max + min; 
-		num *= (Math.random()*2) % 2 ? 1 : -1; 
-		return num;
+		if (max == null) {
+			max = min;
+			min = 0;
+		}
+		return min + Math.floor(Math.random() * (max - min + 1));
 	},
 	getRandomColor = function(){
 		var letters = '0123456789ABCDEF'.split('');

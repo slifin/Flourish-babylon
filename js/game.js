@@ -20,6 +20,7 @@ function Game(def){
 		camera.orthoBottom = -Math.abs(zoom);
 		camera.orthoLeft = -Math.abs(zoom);
 		camera.orthoRight = zoom;
+		camera.getProjectionMatrix(true);
 
 		scene.activeCamera = camera;
 		scene.activeCamera.attachControl(canvas);
