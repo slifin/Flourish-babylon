@@ -11,20 +11,34 @@ function Game(def){
 		return canvas;
 	},
 	Camera = function(){
+		var zoom = 15;
 		camera.angularSensibility = 2;
-		// camera.mode = 1;
+		camera.mode = 1;
+
+
+		camera.orthoTop = zoom;
+		camera.orthoBottom = -Math.abs(zoom);
+		camera.orthoLeft = -Math.abs(zoom);
+		camera.orthoRight = zoom;
+
 		scene.activeCamera = camera;
 		scene.activeCamera.attachControl(canvas);
 		addWheelListener(canvas, Zoom);
+
 		
 	},
 	Zoom = function(event){
+
 		if (event.wheelDelta>0){
-			if (camera.position.z<-5)
-				camera.position.z+=0.5;
+			if (camera.orthoTop<2)
+				return false;
+			camera.orthoTop -= 0.5;
 		}else{
-			camera.position.z-=0.5;
+			camera.orthoTop += 0.5;
 		}
+		camera.orthoBottom = camera.orthoLeft = -Math.abs(camera.orthoTop);
+		camera.orthoRight = camera.orthoTop;
+		
 	},
 	Light = function(){
 		light.intensity = 1;
@@ -55,10 +69,10 @@ function Game(def){
 	canvas = Canvas(),
 	engine = new BABYLON.Engine(canvas, true),
 	scene = new BABYLON.Scene(engine),
-	camera = Camera2D(new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -5), scene)),
-	// camera = Camera2D(new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, 1, -15), scene)),
+	// camera = Camera2D(new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -3), scene)),
+	camera = Camera2D(new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, 1, -15), scene)),
 
-	light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0,1,0), scene)
+	light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0,0,-100), scene)
 	;
 	that.scene = scene;
 	that.Setup = Setup;

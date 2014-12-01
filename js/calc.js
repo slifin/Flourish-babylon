@@ -1,6 +1,6 @@
 function Calc(){
 	var that = {},
-	getBetween = function(min,max){
+	Between = function(min,max){
 		var num = Math.random()*max + min; 
 		num *= (Math.random()*2) % 2 ? 1 : -1; 
 		return num;
@@ -13,6 +13,6 @@ function Calc(){
 		return color;
 	};
 	that.getRandomColor = getRandomColor;
-	that.getBetween = getBetween;
+	that.Between = Between;
 	return that;
 }

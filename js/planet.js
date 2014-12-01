@@ -27,10 +27,11 @@ function Planet(def){
 		return material;
 	},
 	Orbit = function(){
-		var orbit = BABYLON.Mesh.CreateSphere(that.name+'_orbit', 16, 3, that.scene);
+		var orbit = BABYLON.Mesh.CreateSphere(that.name+'_orbit', 32, 5, that.scene);
 		orbit.position.x = that.x;
 		orbit.position.y = that.y;
-		orbit.visibility = 0.5;
+		orbit.position.z = 1;
+		orbit.visibility = 0.05;
 	},
 	Label = function(){
 		var plane = BABYLON.Mesh.CreatePlane('label',4,that.scene);
@@ -64,14 +65,14 @@ function Planet(def){
 		var opacity = 1;
 		for(i = 0;i < 1000;i++){
 			context.beginPath();
-			context.fillStyle = "rgba(" + Math.floor(calc.getBetween(50,255)) + "," + Math.floor(calc.getBetween(50,255)) + "," + Math.floor(calc.getBetween(50,255)) + "," + calc.getBetween(0.1,1) + ")";
+			context.fillStyle = "rgba(" + Math.floor(calc.Between(50,255)) + "," + Math.floor(calc.Between(50,255)) + "," + Math.floor(calc.Between(50,255)) + "," + calc.Between(0.1,1) + ")";
 			context.arc(
-				calc.getBetween(0,200),//x
-				calc.getBetween(0,200),//y
-				calc.getBetween(10,100),//r
-				calc.getBetween(0,1)*Math.PI,//angle
-				calc.getBetween(0,1)*Math.PI,//angle
-				calc.getBetween(0,1) < 0.5?true:false//direction
+				calc.Between(0,200),//x
+				calc.Between(0,200),//y
+				calc.Between(10,100),//r
+				calc.Between(0,1)*Math.PI,//angle
+				calc.Between(0,1)*Math.PI,//angle
+				calc.Between(0,1) < 0.5?true:false//direction
 				);
 			context.fill();
 		}
@@ -83,9 +84,9 @@ function Planet(def){
 	size = that.size||200,
 	minRotate = -0.002, maxRotate = 0.005,
 	rotation = {
-		x:calc.getBetween(minRotate,maxRotate),
-		y:calc.getBetween(minRotate,maxRotate),
-		z:calc.getBetween(minRotate,maxRotate)
+		x:calc.Between(minRotate,maxRotate),
+		y:calc.Between(minRotate,maxRotate),
+		z:calc.Between(minRotate,maxRotate)
 	}
 	;
 	that.Render = Render;
