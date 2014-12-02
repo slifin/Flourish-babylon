@@ -18,18 +18,22 @@ function Game(def){
 
 		camera.orthoTop = zoom;
 		camera.orthoBottom = -Math.abs(zoom);
-		camera.orthoLeft = -Math.abs(zoom);
-		camera.orthoRight = zoom;
+
+		var ratio = window.innerWidth / window.innerHeight;
+		var newWidth = zoom * ratio;
+
+
+		camera.orthoLeft = -Math.abs(newWidth);
+		camera.orthoRight = newWidth;
 		camera.getProjectionMatrix(true);
 
 		scene.activeCamera = camera;
 		scene.activeCamera.attachControl(canvas);
 		addWheelListener(canvas, Zoom);
 
-		
+
 	},
 	Zoom = function(event){
-
 		if (event.wheelDelta>0){
 			if (camera.orthoTop<2)
 				return false;
@@ -37,9 +41,14 @@ function Game(def){
 		}else{
 			camera.orthoTop += 0.5;
 		}
-		camera.orthoBottom = camera.orthoLeft = -Math.abs(camera.orthoTop);
-		camera.orthoRight = camera.orthoTop;
-		
+		var ratio = window.innerWidth / window.innerHeight ;
+		var zoom = camera.orthoTop;
+		var newWidth =zoom * ratio;
+
+		camera.orthoLeft = -Math.abs(newWidth);
+		camera.orthoRight = newWidth;
+		camera.orthoBottom = -Math.abs(zoom);
+
 	},
 	Light = function(){
 		light.intensity = 1;
@@ -64,6 +73,15 @@ function Game(def){
 	Resize = function(){
 		window.addEventListener("resize", function () {
 			engine.resize();
+
+			var ratio = window.innerWidth / window.innerHeight ;
+			var zoom = camera.orthoTop;
+			 var newWidth =zoom * ratio;
+
+			 camera.orthoLeft = -Math.abs(newWidth);
+			 camera.orthoRight = newWidth;
+			 camera.orthoBottom = -Math.abs(zoom);
+
 		});
 	},
 	objects = [],
