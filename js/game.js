@@ -11,7 +11,7 @@ function Game(def){
 		return canvas;
 	},
 	Camera = function(){
-		var zoom = 15;
+		var zoom = 10;
 		camera.angularSensibility = 2;
 		camera.mode = 1;
 

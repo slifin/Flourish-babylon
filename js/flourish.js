@@ -7,5 +7,7 @@
 		solarSystem.add('earth'+i,eve);
 	}
 
+	var fighter = Unit().Setup(Flourish.scene); 
+
 	Flourish.Render([solarSystem]);
 })();
