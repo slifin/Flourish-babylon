@@ -62,7 +62,6 @@ function Planet(def){
 		return canvas;
 	},
 	applyTexture = function(){
-		var opacity = 1;
 		for(i = 0;i < 1000;i++){
 			context.beginPath();
 			context.fillStyle = "rgba(" + Math.floor(calc.Between(50,255)) + "," + Math.floor(calc.Between(50,255)) + "," + Math.floor(calc.Between(50,255)) + "," + calc.Between(0.1,1) + ")";

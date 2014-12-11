@@ -56,7 +56,7 @@ function Game(def){
 		light.groundColor = new BABYLON.Color3(0, 0, 0);
 	},
 	Scene = function(){
-		scene.clearColor = BABYLON.Color3.Black();
+		// scene.clearColor = BABYLON.Color3.Black();
 
 	},
 	Render = function(objs){
